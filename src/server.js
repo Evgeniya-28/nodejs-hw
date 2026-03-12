@@ -1,7 +1,7 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import pino from "pino-http";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import pino from 'pino-http';
 
 dotenv.config();
 
@@ -13,13 +13,19 @@ app.use(cors());
 app.use(express.json());
 app.use(pino());
 
-app.get("/notes", (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).json({
-    message: "Retrieved all notes",
+    message: 'Welcome to the app!',
   });
 });
 
-app.get("/notes/:noteId", (req, res) => {
+app.get('/notes', (req, res) => {
+  res.status(200).json({
+    message: 'Retrieved all notes',
+  });
+});
+
+app.get('/notes/:noteId', (req, res) => {
   const { noteId } = req.params;
 
   res.status(200).json({
@@ -27,13 +33,13 @@ app.get("/notes/:noteId", (req, res) => {
   });
 });
 
-app.get("/test-error", () => {
-  throw new Error("Simulated server error");
+app.get('/test-error', () => {
+  throw new Error('Simulated server error');
 });
 
 app.use((req, res) => {
   res.status(404).json({
-    message: "Route not found",
+    message: 'Route not found',
   });
 });
 
