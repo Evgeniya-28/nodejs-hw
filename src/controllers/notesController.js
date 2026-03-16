@@ -1,5 +1,3 @@
-// src\controllers\notesController.js
-
 import createHttpError from 'http-errors';
 import { Note } from '../models/note.js';
 
@@ -53,7 +51,7 @@ const createNote = async (req, res) => {
 const updateNote = async (req, res) => {
   const { noteId } = req.params;
   const note = await Note.findOneAndUpdate({ _id: noteId }, req.body, {
-    new: true,
+    returnDocument: 'after',
   });
 
   if (!note) {
