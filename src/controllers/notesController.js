@@ -1,7 +1,5 @@
-// src/controllers/notesController.js
-
-import createHttpError from "http-errors";
-import { Note } from "../models/note.js";
+import createHttpError from 'http-errors';
+import { Note } from '../models/note.js';
 
 const getAllNotes = async (req, res) => {
   const { page = 1, perPage = 10, tag, search } = req.query;
@@ -11,7 +9,7 @@ const getAllNotes = async (req, res) => {
   const notesQuery = Note.find({ userId: req.user._id });
 
   if (tag) {
-    notesQuery.where("tag").equals(tag);
+    notesQuery.where('tag').equals(tag);
   }
 
   if (search) {
@@ -41,7 +39,7 @@ const getNoteById = async (req, res) => {
   });
 
   if (!note) {
-    throw createHttpError(404, "Note not found");
+    throw createHttpError(404, 'Note not found');
   }
 
   return res.status(200).json(note);
@@ -60,12 +58,12 @@ const updateNote = async (req, res) => {
     },
     req.body,
     {
-      new: true,
+      returnDocument: 'after',
     },
   );
 
   if (!note) {
-    throw createHttpError(404, "Note not found");
+    throw createHttpError(404, 'Note not found');
   }
 
   return res.status(200).json(note);
@@ -78,7 +76,7 @@ const deleteNote = async (req, res) => {
   });
 
   if (!note) {
-    throw createHttpError(404, "Note not found");
+    throw createHttpError(404, 'Note not found');
   }
 
   return res.status(200).json(note);
